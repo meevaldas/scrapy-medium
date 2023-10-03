@@ -4,9 +4,12 @@
 # https://docs.scrapy.org/en/latest/topics/items.html
 
 import scrapy
+from itemloaders.processors import Join
 
 
 class MediumItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    title = scrapy.Field(output_processor=Join())
+    excerpt = scrapy.Field(output_processor=Join())
+    link = scrapy.Field(output_processor=Join())
