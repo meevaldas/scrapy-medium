@@ -8,7 +8,7 @@ def main():
     process = CrawlerProcess(
         settings={
             "FEEDS": {
-                "medium.json": {"format": "json"},
+                "post.json": {"format": "json"},
             },
         }
     )

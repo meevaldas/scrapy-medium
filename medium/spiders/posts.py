@@ -13,9 +13,10 @@ class PostsSpider(scrapy.Spider):
 
     def parse(self, r):
         options = webdriver.FirefoxOptions()
+        options.add_argument('--headless')
         driver = webdriver.Firefox(options=options)
         driver.get(self.start_urls[0])
-        driver.implicitly_wait(2)
+        driver.implicitly_wait(5)
         i = 1
         num_scrolls = 10
         last_height = driver.execute_script("return document.body.scrollHeight")
@@ -32,7 +33,7 @@ class PostsSpider(scrapy.Spider):
             for c in containers:
                 item = ItemLoader(item=MediumItem(), response=response, selector=c)
                 item.add_xpath("title", ".//h2/text()")
-                item.add_xpath("excerpt",".//h3/text()")
+                item.add_xpath("excerpt", ".//h3/text()")
                 item.add_xpath("link", ".//a[h2]/@href")
                 yield item.load_item()
             i = i + 1
